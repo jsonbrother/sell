@@ -5,6 +5,7 @@ import com.imooc.controller.vo.ResultVO;
 import com.imooc.converter.orderForm2OrderDTOConverter;
 import com.imooc.enums.ResultEnum;
 import com.imooc.exception.SellException;
+import com.imooc.service.IBuyerService;
 import com.imooc.service.IOrderService;
 import com.imooc.service.dto.OrderDTO;
 import com.imooc.utils.ResultVOUtil;
@@ -33,6 +34,9 @@ public class BuyerOrderController {
 
     @Autowired
     private IOrderService iOrderService;
+
+    @Autowired
+    private IBuyerService iBuyerService;
 
     // 创建订单
     @PostMapping("/create")
@@ -81,8 +85,7 @@ public class BuyerOrderController {
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
 
-        //TODO 不安全的做法,改进 后期得加上openid判断 避免越权查询
-        OrderDTO orderDTO = iOrderService.findOne(orderId);
+        OrderDTO orderDTO = iBuyerService.findOrderOne(openid, orderId);
 
         return ResultVOUtil.success(orderDTO);
     }
@@ -90,15 +93,13 @@ public class BuyerOrderController {
     // 取消订单
     @PostMapping("/cancel")
     public ResultVO cancel(@RequestParam("openid") String openid,
-                           @RequestParam("orderId") String orderId){
+                           @RequestParam("orderId") String orderId) {
         if (StringUtils.isEmpty(openid) || StringUtils.isEmpty(orderId)) {
             log.error("【取消订单】openid或者orderId为空");
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
 
-        //TODO 不安全的做法,改进 后期得加上openid判断 避免越权查询
-        OrderDTO orderDTO = iOrderService.findOne(orderId);
-        iOrderService.cancel(orderDTO);
+        iBuyerService.cancelOrder(openid, orderId);
 
         return ResultVOUtil.success();
     }
