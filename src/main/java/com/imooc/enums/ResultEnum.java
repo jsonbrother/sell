@@ -29,7 +29,9 @@ public enum ResultEnum {
 
     CART_EMPTY(30007,"购物车不能为空"),
 
-    ORDER_OWNER_ERROR(30009,"该订单不属于当前用户")
+    ORDER_OWNER_ERROR(30009,"该订单不属于当前用户"),
+
+    WX_MP_ERROR(40001,"微信公众账号方面错误")
 
     ;
 

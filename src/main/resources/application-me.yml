@@ -10,3 +10,7 @@ spring:
     default-property-inclusion: non_null
 server:
   context-path: /sell
+
+weChat:
+  mpAppId: wxe1a5beeea0aa2c38
+  mpAppSecret: 3aefa3a16030c76737c09e50bf137375
