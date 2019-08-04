@@ -14,3 +14,7 @@ server:
 weChat:
   mpAppId: wxe1a5beeea0aa2c38
   mpAppSecret: 3aefa3a16030c76737c09e50bf137375
+  mchId: 1
+  mchKey: 2
+  keyPath: 3
+  notifyUrl: http://json666.natapp1.cc/sell/pay/notify
