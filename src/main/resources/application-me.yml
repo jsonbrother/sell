@@ -12,9 +12,18 @@ server:
   context-path: /sell
 
 weChat:
-  mpAppId: wxe1a5beeea0aa2c38
-  mpAppSecret: 3aefa3a16030c76737c09e50bf137375
-  mchId: 1
-  mchKey: 2
-  keyPath: 3
+#  个人
+#  mpAppId: wxe1a5beeea0aa2c38
+#  mpAppSecret: 3aefa3a16030c76737c09e50bf137375
+#  mchId: 1
+#  mchKey: 2
+#  keyPath: 3
+
+ # 借用
+  mpAppId: wxd898fcb01713c658
+  mpAppSecret : 29d8a650db31472aa87800e3b0d739f2
+  mchId: 1483469312
+  mchKey: C5245D70627C1F8E9964D494B0735025
+  keyPath: E:\idea product
+  # 回调
   notifyUrl: http://json666.natapp1.cc/sell/pay/notify

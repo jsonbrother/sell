@@ -29,7 +29,7 @@ public class WeChatController {
 
     @GetMapping("/authorize")
     public String authorize(@RequestParam("returnUrl") String returnUrl) {
-        String url = "http://json666.natapp1.cc/sell/wechat/userInfo";
+        String url = "http://json666.natapp1.cc/sell/weChat/userInfo";
         String redirectUrl = wxMpService.oauth2buildAuthorizationUrl(url, WxConsts.OAUTH2_SCOPE_BASE, URLEncoder.encode(returnUrl));
         log.info("【微信网页授权】获取code，result={}", redirectUrl);
 
@@ -48,6 +48,6 @@ public class WeChatController {
         }
         String openId = wxMpOAuth2AccessToken.getOpenId();
 
-        return "redirect:" + returnUrl + "?openId=" + openId;
+        return "redirect:" + returnUrl + "?openid=" + openId;
     }
 }

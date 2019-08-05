@@ -1,6 +1,5 @@
 package com.imooc.service.impl;
 
-import com.imooc.service.IPayService;
 import com.imooc.service.dto.OrderDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,9 +15,12 @@ public class PayServiceImplTest {
     @Autowired
     private PayServiceImpl payService;
 
+    @Autowired
+    private OrderServiceImpl orderService;
+
     @Test
     public void create() {
-        OrderDTO dto = new OrderDTO();
-        payService.create(dto);
+        OrderDTO orderDTO = orderService.findOne("1564712082581906375");
+        payService.create(orderDTO);
     }
 }
