@@ -27,9 +27,9 @@ public class OrderServiceImplTest {
     @Autowired
     private IOrderService iOrderService;
 
-    private final String BUYER_OPENID = "Json666";
+    private final String BUYER_OPENID = "1565021063897858555";
 
-    private final String ORDER_ID = "1564593108902534469";
+    private final String ORDER_ID = "oTgZpwYNL23UwFOXNMEOx5ugIkY8";
 
     @Test
     public void create() {
@@ -42,7 +42,7 @@ public class OrderServiceImplTest {
         // 购物车
         List<OrderDetail> orderDetailList = new ArrayList<>();
         OrderDetail o1 = new OrderDetail();
-        o1.setProductId("222222");
+        o1.setProductId("123456");
         o1.setProductQuantity(1);
         orderDetailList.add(o1);
 

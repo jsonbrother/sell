@@ -1,6 +1,7 @@
 package com.imooc.service;
 
 import com.imooc.service.dto.OrderDTO;
+import com.lly835.bestpay.model.PayResponse;
 
 /**
  * Created by TongHaiJun
@@ -8,5 +9,5 @@ import com.imooc.service.dto.OrderDTO;
  */
 public interface IPayService {
 
-    void create(OrderDTO orderDTO);
+    PayResponse create(OrderDTO orderDTO);
 }

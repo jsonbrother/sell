@@ -25,7 +25,7 @@ public class PayServiceImpl implements IPayService {
     private static final String ORDER_NAME = "微信点餐订单";
 
     @Override
-    public void create(OrderDTO orderDTO) {
+    public PayResponse create(OrderDTO orderDTO) {
         PayRequest payRequest = new PayRequest();
         payRequest.setOpenid(orderDTO.getBuyerOpenid());
         payRequest.setOrderAmount(orderDTO.getOrderAmount().doubleValue());
@@ -36,5 +36,6 @@ public class PayServiceImpl implements IPayService {
 
         PayResponse payResponse = bestPayService.pay(payRequest);
         log.info("【微信支付】 response={}", JsonUtil.toJson(payResponse));
+        return payResponse;
     }
 }
