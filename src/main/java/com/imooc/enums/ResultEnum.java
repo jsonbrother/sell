@@ -31,7 +31,9 @@ public enum ResultEnum {
 
     ORDER_OWNER_ERROR(30009,"该订单不属于当前用户"),
 
-    WX_MP_ERROR(40001,"微信公众账号方面错误")
+    WX_MP_ERROR(40001,"微信公众账号方面错误"),
+
+    WX_PAY_NOTIFY_MONEY_VERIFY_ERROR(40002,"微信支付异步通知金额校验不通过");
 
     ;
 

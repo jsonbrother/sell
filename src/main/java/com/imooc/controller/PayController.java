@@ -8,10 +8,7 @@ import com.imooc.service.dto.OrderDTO;
 import com.lly835.bestpay.model.PayResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -31,7 +28,6 @@ public class PayController {
     private IPayService iPayService;
 
     @GetMapping("/create")
-    @Transactional
     public ModelAndView create(@RequestParam("orderId") String orderId,
                                @RequestParam("returnUrl") String returnUrl,
                                Map<String, Object> map) {
@@ -46,5 +42,14 @@ public class PayController {
         map.put("payResponse",payResponse);
 
         return new ModelAndView("pay/create", map);
+    }
+
+    @PostMapping("/notify")
+    public ModelAndView notify(@RequestBody String notifyData){
+        // 1.处理微信异步通知
+        iPayService.notify(notifyData);
+
+        // 2.给微信返回处理结果
+        return new ModelAndView("pay/success");
     }
 }

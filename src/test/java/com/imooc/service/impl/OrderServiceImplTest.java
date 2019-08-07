@@ -27,9 +27,9 @@ public class OrderServiceImplTest {
     @Autowired
     private IOrderService iOrderService;
 
-    private final String BUYER_OPENID = "1565021063897858555";
+    private final String BUYER_OPENID = "oTgZpwYNL23UwFOXNMEOx5ugIkY8";
 
-    private final String ORDER_ID = "oTgZpwYNL23UwFOXNMEOx5ugIkY8";
+    private final String ORDER_ID = "1565189662929418959";
 
     @Test
     public void create() {
