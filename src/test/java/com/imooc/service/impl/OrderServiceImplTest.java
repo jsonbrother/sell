@@ -67,6 +67,14 @@ public class OrderServiceImplTest {
     }
 
     @Test
+    public void list() {
+        PageRequest request = new PageRequest(0, 2);
+        Page<OrderDTO> orderDTOPage = iOrderService.findList(request);
+        Assert.assertNotEquals(0, orderDTOPage.getTotalElements());
+    }
+
+
+    @Test
     public void paid() {
         OrderDTO orderDTO = iOrderService.findOne(ORDER_ID);
         OrderDTO result = iOrderService.paid(orderDTO);

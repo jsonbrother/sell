@@ -26,6 +26,11 @@ public interface IOrderService {
     Page<OrderDTO> findList(String buyerOpenid, Pageable pageable);
 
     /**
+     * 查询所有列表.
+     */
+    Page<OrderDTO> findList(Pageable pageable);
+
+    /**
      * 支付订单.
      */
     OrderDTO paid(OrderDTO orderDTO);

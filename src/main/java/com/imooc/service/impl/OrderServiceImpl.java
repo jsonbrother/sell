@@ -123,6 +123,15 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    public Page<OrderDTO> findList(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = iOrderMasterDao.findAll(pageable);
+
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
+
+        return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
+    }
+
+    @Override
     @Transactional
     public OrderDTO paid(OrderDTO orderDTO) {
 
