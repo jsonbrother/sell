@@ -11,6 +11,7 @@ import com.imooc.enums.PayStatusEnum;
 import com.imooc.enums.ResultEnum;
 import com.imooc.exception.SellException;
 import com.imooc.service.IOrderService;
+import com.imooc.service.IPayService;
 import com.imooc.service.IProductService;
 import com.imooc.service.dto.CartDTO;
 import com.imooc.service.dto.OrderDTO;
@@ -46,6 +47,9 @@ public class OrderServiceImpl implements IOrderService {
 
     @Autowired
     private IOrderMasterDao iOrderMasterDao;
+
+    @Autowired
+    private IPayService iPayService;
 
     @Override
     @Transactional
@@ -201,7 +205,7 @@ public class OrderServiceImpl implements IOrderService {
 
         // 4.如果已支付,需要退款
         if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())) {
-            //TODO
+            iPayService.refund(orderDTO);
         }
 
         return orderDTO;

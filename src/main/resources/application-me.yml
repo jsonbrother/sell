@@ -24,6 +24,6 @@ weChat:
   mpAppSecret : 29d8a650db31472aa87800e3b0d739f2
   mchId: 1483469312
   mchKey: C5245D70627C1F8E9964D494B0735025
-  keyPath: E:\idea product
+  keyPath: E:\idea product\h5.p12
   # 回调
   notifyUrl: http://json666.natapp1.cc/sell/pay/notify

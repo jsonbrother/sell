@@ -10,13 +10,13 @@ import com.imooc.utils.serializer.JsonUtil;
 import com.lly835.bestpay.enums.BestPayTypeEnum;
 import com.lly835.bestpay.model.PayRequest;
 import com.lly835.bestpay.model.PayResponse;
+import com.lly835.bestpay.model.RefundRequest;
+import com.lly835.bestpay.model.RefundResponse;
 import com.lly835.bestpay.service.impl.BestPayServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
 
 /**
  * Created by TongHaiJun
@@ -36,6 +36,7 @@ public class PayServiceImpl implements IPayService {
     private static final String ORDER_NAME = "微信点餐订单";
 
     @Override
+    @Transactional
     public PayResponse create(OrderDTO orderDTO) {
         PayRequest payRequest = new PayRequest();
         payRequest.setOpenid(orderDTO.getBuyerOpenid());
@@ -51,6 +52,7 @@ public class PayServiceImpl implements IPayService {
     }
 
     @Override
+    @Transactional
     public PayResponse notify(String notifyData) {
         // 1.验证签名、支付的状态
         PayResponse payResponse = bestPayService.asyncNotify(notifyData);
@@ -76,5 +78,18 @@ public class PayServiceImpl implements IPayService {
         iOrderService.paid(orderDTO);
 
         return payResponse;
+    }
+
+    @Override
+    @Transactional
+    public void refund(OrderDTO orderDTO) {
+        RefundRequest refundRequest = new RefundRequest();
+        refundRequest.setOrderId(orderDTO.getOrderId());
+        refundRequest.setOrderAmount(orderDTO.getOrderAmount().doubleValue());
+        refundRequest.setPayTypeEnum(BestPayTypeEnum.WXPAY_H5);
+        log.info("【微信退款】request={}", JsonUtil.toJson(refundRequest));
+        
+        RefundResponse refundResponse = bestPayService.refund(refundRequest);
+        log.info("【微信退款】response={}", JsonUtil.toJson(refundResponse));
     }
 }

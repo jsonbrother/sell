@@ -22,4 +22,10 @@ public interface IPayService {
      * @return
      */
     PayResponse notify(String notifyData);
+
+    /**
+     * 微信H5退款
+     * @param orderDTO
+     */
+    void refund(OrderDTO orderDTO);
 }
