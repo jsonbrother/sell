@@ -46,9 +46,9 @@
                                 </td>
                                 <td>
                                     <#if productInfo.getProductStatusEnum().message == '上架'>
-                                        <a href="/sell/seller/product/off_sale?productId=${productInfo.productId}">下架</a>
+                                        <a href="/sell/seller/product/offSale?productId=${productInfo.productId}">下架</a>
                                     <#else>
-                                        <a href="/sell/seller/product/on_sale?productId=${productInfo.productId}">上架</a>
+                                        <a href="/sell/seller/product/onSale?productId=${productInfo.productId}">上架</a>
                                     </#if>
                                 </td>
                             </tr>
