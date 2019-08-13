@@ -49,7 +49,7 @@ public class ProductServiceImpl implements IProductService {
     public void increaseStock(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO : cartDTOList) {
             ProductInfo productInfo = iProductInfoDao.findOne(cartDTO.getProductId());
-            if(productInfo == null){
+            if (productInfo == null) {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
 
@@ -78,5 +78,37 @@ public class ProductServiceImpl implements IProductService {
 
             iProductInfoDao.save(productInfo);
         }
+    }
+
+    @Override
+    @Transactional
+    public ProductInfo onSale(String productId) {
+        ProductInfo productInfo = iProductInfoDao.findOne(productId);
+        if (productInfo == null) {
+            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+        // 1.判断商品状态是否在架
+        if (productInfo.getProductStatusEnum() == ProductStatusEnum.UP) {
+            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
+        // 2.更新商品状态
+        productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
+        return iProductInfoDao.save(productInfo);
+    }
+
+    @Override
+    @Transactional
+    public ProductInfo offSale(String productId) {
+        ProductInfo productInfo = iProductInfoDao.findOne(productId);
+        if (productInfo == null) {
+            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+        // 1.判断商品状态是否下架
+        if (productInfo.getProductStatusEnum() == ProductStatusEnum.DOWN) {
+            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
+        // 2.更新商品状态
+        productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
+        return iProductInfoDao.save(productInfo);
     }
 }
