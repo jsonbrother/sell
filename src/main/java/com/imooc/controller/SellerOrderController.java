@@ -32,14 +32,13 @@ public class SellerOrderController {
 
     /**
      * 订单列表
-     *
      * @param page 第几页，从1页开始
      * @param size 一页有多少条数据
      * @return
      */
     @GetMapping("/list")
     public ModelAndView list(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                             @RequestParam(value = "size", defaultValue = "3") Integer size,
+                             @RequestParam(value = "size", defaultValue = "10") Integer size,
                              Map<String, Object> map) {
         PageRequest pageable = new PageRequest(page - 1, size);
         Page<OrderDTO> orderDTOPage = iOrderService.findList(pageable);
@@ -69,6 +68,27 @@ public class SellerOrderController {
         map.put("msg", ResultEnum.ORDER_CANCEL_SUCCESS.getMessage());
         map.put("url", "/sell/seller/order/list");
         return new ModelAndView("common/success");
+    }
+
+    /**
+     * 订单详情
+     * @param orderId 订单编号
+     * @return
+     */
+    @GetMapping("/detail")
+    public ModelAndView detail(@RequestParam("orderId") String orderId,
+                               Map<String, Object> map) {
+        OrderDTO orderDTO;
+        try {
+            orderDTO = iOrderService.findOne(orderId);
+        } catch (SellException e) {
+            log.error("【卖家端查询订单详情】发生异常{}", e);
+            map.put("msg", e.getMessage());
+            map.put("url", "/sell/seller/order/list");
+            return new ModelAndView("common/error", map);
+        }
+        map.put("orderDTO", orderDTO);
+        return new ModelAndView("order/detail", map);
     }
 
 }
