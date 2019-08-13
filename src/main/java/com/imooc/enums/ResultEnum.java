@@ -31,6 +31,8 @@ public enum ResultEnum {
 
     ORDER_CANCEL_SUCCESS(30007,"订单取消成功"),
 
+    ORDER_FINISH_SUCCESS(30008,"订单完结成功"),
+
     CART_EMPTY(30007,"购物车不能为空"),
 
     ORDER_OWNER_ERROR(30009,"该订单不属于当前用户"),

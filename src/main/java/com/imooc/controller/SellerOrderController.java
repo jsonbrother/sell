@@ -18,7 +18,7 @@ import java.util.Map;
 
 
 /**
- * 卖家订单列表
+ * 卖家订单列表.
  * Created by TongHaiJun
  * 2019/8/12 22:32
  */
@@ -31,7 +31,7 @@ public class SellerOrderController {
     private IOrderService iOrderService;
 
     /**
-     * 订单列表
+     * 订单列表.
      * @param page 第几页，从1页开始
      * @param size 一页有多少条数据
      * @return
@@ -49,7 +49,7 @@ public class SellerOrderController {
     }
 
     /**
-     * 取消订单
+     * 取消订单.
      * @param orderId 订单编号
      * @return
      */
@@ -71,7 +71,7 @@ public class SellerOrderController {
     }
 
     /**
-     * 订单详情
+     * 订单详情.
      * @param orderId 订单编号
      * @return
      */
@@ -91,4 +91,25 @@ public class SellerOrderController {
         return new ModelAndView("order/detail", map);
     }
 
+    /**
+     * 完结订单.
+     * @param orderId 订单编号
+     * @return
+     */
+    @GetMapping("/finish")
+    public ModelAndView finish(@RequestParam("orderId") String orderId,
+                               Map<String, Object> map) {
+        try {
+            OrderDTO orderDTO = iOrderService.findOne(orderId);
+            iOrderService.finish(orderDTO);
+        } catch (SellException e) {
+            log.error("【卖家端完结订单】发生异常{}", e);
+            map.put("msg", e.getMessage());
+            map.put("url", "/sell/seller/order/list");
+            return new ModelAndView("common/error", map);
+        }
+        map.put("msg", ResultEnum.ORDER_FINISH_SUCCESS.getMessage());
+        map.put("url", "/sell/seller/order/list");
+        return new ModelAndView("common/success");
+    }
 }
