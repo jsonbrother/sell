@@ -1,18 +1,27 @@
 package com.imooc.controller;
 
+import com.imooc.controller.form.ProductForm;
+import com.imooc.dao.po.ProductCategory;
 import com.imooc.dao.po.ProductInfo;
 import com.imooc.exception.SellException;
+import com.imooc.service.ICategoryService;
 import com.imooc.service.IProductService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,6 +35,9 @@ public class SellerProductController {
 
     @Autowired
     private IProductService iProductService;
+
+    @Autowired
+    private ICategoryService iCategoryService;
 
     /**
      * 商品列表.
@@ -71,12 +83,60 @@ public class SellerProductController {
      */
     @GetMapping("/offSale")
     public ModelAndView offSale(@RequestParam("productId") String productId,
-                               Map<String, Object> map) {
+                                Map<String, Object> map) {
         try {
             iProductService.offSale(productId);
         } catch (SellException e) {
             map.put("msg", e.getMessage());
             map.put("url", "/sell/seller/product/list");
+            return new ModelAndView("common/error", map);
+        }
+        map.put("url", "/sell/seller/product/list");
+        return new ModelAndView("common/success", map);
+    }
+
+    /**
+     * 商品表单界面
+     * @param productId 商品编号
+     * @return
+     */
+    @GetMapping("/index")
+    public ModelAndView index(@RequestParam(value = "productId", required = false) String productId,
+                              Map<String, Object> map) {
+        if (!StringUtils.isEmpty(productId)) {
+            ProductInfo productInfo = iProductService.findOne(productId);
+            map.put("productInfo", productInfo);
+        }
+
+        List<ProductCategory> productCategoryList = iCategoryService.findAll();
+        map.put("productCategoryList", productCategoryList);
+
+        return new ModelAndView("product/index", map);
+    }
+
+    /**
+     * 商品修改
+     * @param productForm form数据
+     * @param bindingResult 验证信息
+     * @return
+     */
+    @PostMapping("/save")
+    public ModelAndView save(@Valid ProductForm productForm,
+                             BindingResult bindingResult,
+                             Map<String, Object> map) {
+        if (bindingResult.hasErrors()) {
+            map.put("msg", bindingResult.getFieldError().getDefaultMessage());
+            map.put("url", "/sell/seller/product/index");
+            return new ModelAndView("common/error", map);
+        }
+
+        try {
+            ProductInfo productInfo = iProductService.findOne(productForm.getProductId());
+            BeanUtils.copyProperties(productForm, productInfo);
+            iProductService.save(productInfo);
+        } catch (SellException e) {
+            map.put("msg", e.getMessage());
+            map.put("url", "/sell/seller/product/index");
             return new ModelAndView("common/error", map);
         }
         map.put("url", "/sell/seller/product/list");
