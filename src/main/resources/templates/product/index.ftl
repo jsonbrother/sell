@@ -39,7 +39,7 @@
                             <select name="categoryType" class="form-control">
                                 <#list productCategoryList as productCategory>
                                         <option value="${productCategory.categoryType}"
-                                            <#if (productInfo.categoryType??) && productInfo.categoryType == productCategory.categoryType>
+                                            <#if (productInfo.categoryType)?? && productInfo.categoryType == productCategory.categoryType>
                                                 selected
                                             </#if>
                                         >

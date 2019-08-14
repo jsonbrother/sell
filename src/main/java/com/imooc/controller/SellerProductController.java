@@ -6,6 +6,7 @@ import com.imooc.dao.po.ProductInfo;
 import com.imooc.exception.SellException;
 import com.imooc.service.ICategoryService;
 import com.imooc.service.IProductService;
+import com.imooc.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +116,7 @@ public class SellerProductController {
     }
 
     /**
-     * 商品修改
+     * 商品新增/修改
      * @param productForm form数据
      * @param bindingResult 验证信息
      * @return
@@ -130,8 +131,14 @@ public class SellerProductController {
             return new ModelAndView("common/error", map);
         }
 
+        ProductInfo productInfo = new ProductInfo();
         try {
-            ProductInfo productInfo = iProductService.findOne(productForm.getProductId());
+            // 判断productId是否为空 true=新增，false=修改
+            if(!StringUtils.isEmpty(productForm.getProductId())){
+                productInfo = iProductService.findOne(productForm.getProductId());
+            } else{
+                productForm.setProductId(KeyUtil.genUniqueKey());
+            }
             BeanUtils.copyProperties(productForm, productInfo);
             iProductService.save(productInfo);
         } catch (SellException e) {
