@@ -55,6 +55,7 @@ public class SellerProductController {
         map.put("productInfoPage", productInfoPage);
         map.put("currentPage", page);
         map.put("size", size);
+
         return new ModelAndView("/product/list", map);
     }
 
@@ -73,6 +74,7 @@ public class SellerProductController {
             map.put("url", "/sell/seller/product/list");
             return new ModelAndView("common/error", map);
         }
+
         map.put("url", "/sell/seller/product/list");
         return new ModelAndView("common/success", map);
     }
@@ -92,6 +94,7 @@ public class SellerProductController {
             map.put("url", "/sell/seller/product/list");
             return new ModelAndView("common/error", map);
         }
+
         map.put("url", "/sell/seller/product/list");
         return new ModelAndView("common/success", map);
     }
@@ -146,6 +149,7 @@ public class SellerProductController {
             map.put("url", "/sell/seller/product/index");
             return new ModelAndView("common/error", map);
         }
+
         map.put("url", "/sell/seller/product/list");
         return new ModelAndView("common/success", map);
     }

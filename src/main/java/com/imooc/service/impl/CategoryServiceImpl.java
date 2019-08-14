@@ -20,6 +20,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public ProductCategory save(ProductCategory productCategory) {
+        // TODO 类目的新增、修改 需要判断类目编号是否存在 商品是否选择 待优化
         return iProductCategoryDao.save(productCategory);
     }
 
