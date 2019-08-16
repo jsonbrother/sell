@@ -17,7 +17,7 @@ import java.util.List;
  * 2019/8/1 23:44
  */
 @Slf4j
-public class orderForm2OrderDTOConverter {
+public class OrderForm2OrderDTOConverter {
 
     public static OrderDTO convert(OrderForm orderForm) {
         OrderDTO orderDTO = new OrderDTO();
@@ -27,7 +27,7 @@ public class orderForm2OrderDTOConverter {
         orderDTO.setBuyerOpenid(orderForm.getOpenid());
 
         Gson gson = new Gson();
-        List<OrderDetail> orderDetailList = new ArrayList<>();
+        List<OrderDetail> orderDetailList;
         try {
             orderDetailList = gson.fromJson(orderForm.getItems(),
                     new TypeToken<List<OrderDetail>>() {

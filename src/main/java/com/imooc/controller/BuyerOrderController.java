@@ -2,7 +2,7 @@ package com.imooc.controller;
 
 import com.imooc.controller.form.OrderForm;
 import com.imooc.controller.vo.ResultVO;
-import com.imooc.converter.orderForm2OrderDTOConverter;
+import com.imooc.converter.OrderForm2OrderDTOConverter;
 import com.imooc.enums.ResultEnum;
 import com.imooc.exception.SellException;
 import com.imooc.service.IBuyerService;
@@ -46,7 +46,7 @@ public class BuyerOrderController {
             throw new SellException(ResultEnum.PARAM_ERROR.getCode(), bindingResult.getFieldError().getDefaultMessage());
         }
 
-        OrderDTO orderDTO = orderForm2OrderDTOConverter.convert(orderForm);
+        OrderDTO orderDTO = OrderForm2OrderDTOConverter.convert(orderForm);
         if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
             log.error("【创建订单】购物车不能为空，");
             throw new SellException(ResultEnum.CART_EMPTY);
