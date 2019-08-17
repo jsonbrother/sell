@@ -13,6 +13,7 @@ import com.imooc.exception.SellException;
 import com.imooc.service.IOrderService;
 import com.imooc.service.IPayService;
 import com.imooc.service.IProductService;
+import com.imooc.service.IPushMessageService;
 import com.imooc.service.dto.CartDTO;
 import com.imooc.service.dto.OrderDTO;
 import com.imooc.utils.KeyUtil;
@@ -50,6 +51,9 @@ public class OrderServiceImpl implements IOrderService {
 
     @Autowired
     private IPayService iPayService;
+
+    @Autowired
+    private IPushMessageService iPushMessageService;
 
     @Override
     @Transactional
@@ -90,6 +94,9 @@ public class OrderServiceImpl implements IOrderService {
                 new CartDTO(e.getProductId(), e.getProductQuantity())
         ).collect(Collectors.toList());
         iProductService.decreaseStock(cartDTOList);
+
+        // 5.推送微信模板信息
+        iPushMessageService.orderStatus(orderDTO);
 
         return orderDTO;
     }
@@ -164,13 +171,13 @@ public class OrderServiceImpl implements IOrderService {
     @Transactional
     public OrderDTO finish(OrderDTO orderDTO) {
 
-        //1.判断订单状态
+        // 1.判断订单状态
         if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
             log.error("【完结订单】订单状态不正确，orderId={},orderStatus={}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
             throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
 
-        //2.修改状态
+        // 2.修改状态
         orderDTO.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
         OrderMaster orderMaster = new OrderMaster();
         BeanUtils.copyProperties(orderDTO, orderMaster);
@@ -179,6 +186,9 @@ public class OrderServiceImpl implements IOrderService {
             log.error("【完结订单】更新失败，orderMaster={}", orderMaster);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
+
+        // 3.推送微信模板信息
+        iPushMessageService.orderStatus(orderDTO);
 
         return orderDTO;
     }
@@ -216,6 +226,9 @@ public class OrderServiceImpl implements IOrderService {
         if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())) {
             iPayService.refund(orderDTO);
         }
+
+        // 5.推送微信模板信息
+        iPushMessageService.orderStatus(orderDTO);
 
         return orderDTO;
     }

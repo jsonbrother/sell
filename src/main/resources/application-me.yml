@@ -16,22 +16,23 @@ server:
 
 weChat:
 #  个人
-#  mpAppId: wxe1a5beeea0aa2c38
-#  mpAppSecret: 3aefa3a16030c76737c09e50bf137375
-#  mchId: 1
-#  mchKey: 2
-#  keyPath: 3
+  mpAppId: wxe1a5beeea0aa2c38
+  mpAppSecret: 3aefa3a16030c76737c09e50bf137375
 
  # 借用
-  mpAppId: wxd898fcb01713c658
-  mpAppSecret : 29d8a650db31472aa87800e3b0d739f2
-  openAppId: wx6ad144e54af67d87
-  openAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e
-  mchId: 1483469312
-  mchKey: C5245D70627C1F8E9964D494B0735025
-  keyPath: E:\idea product\h5.p12
-  # 回调
-  notifyUrl: http://json666.natapp1.cc/sell/pay/notify
+ # mpAppId: wxd898fcb01713c658
+ # mpAppSecret : 29d8a650db31472aa87800e3b0d739f2
+ # openAppId: wx6ad144e54af67d87
+ # openAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e
+ # mchId: 1483469312
+ # mchKey: C5245D70627C1F8E9964D494B0735025
+ # keyPath: E:\idea product\h5.p12
+ # 微信支付回调
+ # notifyUrl: http://json666.natapp1.cc/sell/pay/notify
+
+  templateId:
+    orderStatus: Vg4HbLxx7tNkoweU3nt6BsF2guFibT2MlRwjvzsiE9Y
+
 
 projectUrl:
   wxChatMpAuthorize: http://json666.natapp1.cc
