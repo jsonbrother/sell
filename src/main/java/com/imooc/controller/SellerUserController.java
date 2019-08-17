@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.UUID;
@@ -62,9 +64,18 @@ public class SellerUserController {
     }
 
     @GetMapping("/logout")
-    public ModelAndView logout(@RequestParam("openid") String openid,
-                               Map<String, Object> map) {
+    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response, Map<String, Object> map) {
+        // 1.从cookie里查询
+        Cookie cookie = CookieUtil.get(request, CookieConstant.TOKEN);
+        if (cookie != null) {
+            // 2.清除redis
+            redisTemplate.opsForValue().getOperations().delete(String.format(RedisConstant.TOKEN_PREFIX, cookie.getValue()));
+            // 3.清除cookie
+            CookieUtil.set(response, CookieConstant.TOKEN, null, 0);
+        }
+        map.put("msg", ResultEnum.LOGOUT_SUCCESS);
+        map.put("url", "/sell/seller/order/list");
 
-        return null;
+        return new ModelAndView("common/success", map);
     }
 }

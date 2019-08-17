@@ -43,9 +43,9 @@ public enum ResultEnum {
 
     WX_PAY_NOTIFY_MONEY_VERIFY_ERROR(40002,"微信支付异步通知金额校验不通过"),
 
-    LOGIN_SUCCESS(50001,"登陆成功"),
+    LOGIN_FAIL(50001,"登陆失败"),
 
-    LOGIN_FAIL(50002,"登陆失败"),
+    LOGOUT_SUCCESS(50002,"登陆成功"),
 
     ;
 
