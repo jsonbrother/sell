@@ -10,10 +10,7 @@ import com.imooc.enums.OrderStatusEnum;
 import com.imooc.enums.PayStatusEnum;
 import com.imooc.enums.ResultEnum;
 import com.imooc.exception.SellException;
-import com.imooc.service.IOrderService;
-import com.imooc.service.IPayService;
-import com.imooc.service.IProductService;
-import com.imooc.service.IPushMessageService;
+import com.imooc.service.*;
 import com.imooc.service.dto.CartDTO;
 import com.imooc.service.dto.OrderDTO;
 import com.imooc.utils.KeyUtil;
@@ -54,6 +51,9 @@ public class OrderServiceImpl implements IOrderService {
 
     @Autowired
     private IPushMessageService iPushMessageService;
+
+    @Autowired
+    private WebSocket webSocket;
 
     @Override
     @Transactional
@@ -96,7 +96,11 @@ public class OrderServiceImpl implements IOrderService {
         iProductService.decreaseStock(cartDTOList);
 
         // 5.推送微信模板信息
+        BeanUtils.copyProperties(orderMaster, orderDTO);
         iPushMessageService.orderStatus(orderDTO);
+
+        // 6.发送webSocket信息
+        webSocket.sendMessage("有新的订单");
 
         return orderDTO;
     }
