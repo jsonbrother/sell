@@ -41,7 +41,11 @@ public enum ResultEnum {
 
     WX_MP_ERROR(40001,"微信公众账号方面错误"),
 
-    WX_PAY_NOTIFY_MONEY_VERIFY_ERROR(40002,"微信支付异步通知金额校验不通过");
+    WX_PAY_NOTIFY_MONEY_VERIFY_ERROR(40002,"微信支付异步通知金额校验不通过"),
+
+    LOGIN_SUCCESS(50001,"登陆成功"),
+
+    LOGIN_FAIL(50002,"登陆失败"),
 
     ;
 
