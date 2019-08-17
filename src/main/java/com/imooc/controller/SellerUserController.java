@@ -39,6 +39,12 @@ public class SellerUserController {
     @Autowired
     private ProjectUrlConfig projectUrlConfig;
 
+    /**
+     * 登陆
+     * @param openid
+     * @param response
+     * @return
+     */
     @GetMapping("/login")
     public ModelAndView login(@RequestParam("openid") String openid,
                               HttpServletResponse response,
@@ -63,6 +69,12 @@ public class SellerUserController {
         return new ModelAndView("redirect:" + projectUrlConfig.getSell() + "/sell/seller/order/list");
     }
 
+    /**
+     * 登出
+     * @param request
+     * @param response
+     * @return
+     */
     @GetMapping("/logout")
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response, Map<String, Object> map) {
         // 1.从cookie里查询
@@ -73,7 +85,7 @@ public class SellerUserController {
             // 3.清除cookie
             CookieUtil.set(response, CookieConstant.TOKEN, null, 0);
         }
-        map.put("msg", ResultEnum.LOGOUT_SUCCESS);
+        map.put("msg", ResultEnum.LOGOUT_SUCCESS.getMessage());
         map.put("url", "/sell/seller/order/list");
 
         return new ModelAndView("common/success", map);
