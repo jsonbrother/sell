@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class IOrderDetailDaoTest {
 
     @Autowired
@@ -35,7 +35,7 @@ public class IOrderDetailDaoTest {
 
     @Test
     public void findByOrderIdTest() {
-        List<OrderDetail> orderDetailList = iOrderDetailDao.findByOrderId("1234567");
+        List<OrderDetail> orderDetailList = iOrderDetailDao.findByOrderId("1566071689891349645");
         Assert.assertNotEquals(0, orderDetailList.size());
     }
 
