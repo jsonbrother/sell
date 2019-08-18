@@ -36,7 +36,7 @@ public class ProductServiceImplTest {
 
     @Test
     public void findAll() {
-        Pageable request = new PageRequest(0, 2);
+        Pageable request = PageRequest.of(0, 2);
         Page<ProductInfo> productInfos = productService.findAll(request);
 //        System.out.println(productInfos.getTotalElements());
         Assert.assertNotEquals(0, productInfos.getTotalElements());
@@ -47,7 +47,7 @@ public class ProductServiceImplTest {
         ProductInfo productInfo = new ProductInfo();
         productInfo.setProductId("111111");
         productInfo.setProductName("皮皮虾");
-        productInfo.setProductPrice(new BigDecimal(5.2));
+        productInfo.setProductPrice(BigDecimal.valueOf(5.2));
         productInfo.setProductStock(99);
         productInfo.setProductDescription("很好喝的虾");
         productInfo.setProductIcon("http://pipixia.jpa");

@@ -1,7 +1,8 @@
 package com.imooc.controller.form;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotEmpty;
 
 /**
  * Created by TongHaiJun

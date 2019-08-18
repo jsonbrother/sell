@@ -27,7 +27,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ProductInfo findOne(String productId) {
-        return iProductInfoDao.findOne(productId);
+        return iProductInfoDao.findById(productId).orElse(null);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public void increaseStock(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO : cartDTOList) {
-            ProductInfo productInfo = iProductInfoDao.findOne(cartDTO.getProductId());
+            ProductInfo productInfo = iProductInfoDao.findById(cartDTO.getProductId()).orElse(null);
             if (productInfo == null) {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
@@ -64,7 +64,7 @@ public class ProductServiceImpl implements IProductService {
     @Transactional
     public void decreaseStock(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO : cartDTOList) {
-            ProductInfo productInfo = iProductInfoDao.findOne(cartDTO.getProductId());
+            ProductInfo productInfo = iProductInfoDao.findById(cartDTO.getProductId()).orElse(null);
             if (productInfo == null) {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
@@ -83,7 +83,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     @Transactional
     public ProductInfo onSale(String productId) {
-        ProductInfo productInfo = iProductInfoDao.findOne(productId);
+        ProductInfo productInfo = iProductInfoDao.findById(productId).orElse(null);
         if (productInfo == null) {
             throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
         }
@@ -99,7 +99,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     @Transactional
     public ProductInfo offSale(String productId) {
-        ProductInfo productInfo = iProductInfoDao.findOne(productId);
+        ProductInfo productInfo = iProductInfoDao.findById(productId).orElse(null);
         if (productInfo == null) {
             throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
         }

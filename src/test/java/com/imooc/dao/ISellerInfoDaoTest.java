@@ -21,7 +21,7 @@ public class ISellerInfoDaoTest {
     @Autowired
     private ISellerInfoDao iSellerInfoDao;
 
-    private final String OPEN_ID = "oTgZpwYNL23UwFOXNMEOx5ugIkY8";
+    private static final String OPEN_ID = "oTgZpwYNL23UwFOXNMEOx5ugIkY8";
 
     @Test
     public void save(){

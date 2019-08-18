@@ -20,7 +20,7 @@ public class IOrderMasterDaoTest {
     @Autowired
     private IOrderMasterDao iOrderMasterDao;
 
-    private final String OPENID = "Json666";
+    private static final String OPENID = "Json666";
 
     @Test
     public void saveTest(){
@@ -37,7 +37,7 @@ public class IOrderMasterDaoTest {
 
     @Test
     public void findByBuyerOpenidTest(){
-        PageRequest request = new PageRequest(1,3);
+        PageRequest request = PageRequest.of(1,3);
         Page<OrderMaster> result = iOrderMasterDao.findByBuyerOpenid(OPENID,request);
         Assert.assertNotEquals(0,result.getTotalElements());
     }

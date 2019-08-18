@@ -25,7 +25,7 @@ public class IProductCategoryDaoTest {
     
     @Test
     public void findOneTest(){
-        ProductCategory productCategory = iProductCategoryDao.findOne(1);
+        ProductCategory productCategory = iProductCategoryDao.findById(1).orElse(null);
         System.out.println(productCategory.toString());
     }
 

@@ -107,7 +107,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public OrderDTO findOne(String orderId) {
-        OrderMaster orderMaster = iOrderMasterDao.findOne(orderId);
+        OrderMaster orderMaster = iOrderMasterDao.findById(orderId).orElse(null);
         if (orderMaster == null) {
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }

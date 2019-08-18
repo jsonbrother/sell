@@ -12,7 +12,7 @@ import java.util.Map;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "weChat")
+@ConfigurationProperties(prefix = "we-chat")
 public class WeChatAccountConfig {
 
     /**

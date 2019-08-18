@@ -14,7 +14,7 @@ public class SellerServiceImplTest {
     @Autowired
     private SellerServiceImpl sellerService;
 
-    private final String OPEN_ID = "oTgZpwYNL23UwFOXNMEOx5ugIkY8";
+    private static final String OPEN_ID = "oTgZpwYNL23UwFOXNMEOx5ugIkY8";
 
     @Test
     public void findSellerInfoByOpenid() {

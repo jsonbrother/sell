@@ -40,7 +40,7 @@ public class SellerOrderController {
     public ModelAndView list(@RequestParam(value = "page", defaultValue = "1") Integer page,
                              @RequestParam(value = "size", defaultValue = "10") Integer size,
                              Map<String, Object> map) {
-        PageRequest pageable = new PageRequest(page - 1, size);
+        PageRequest pageable = PageRequest.of(page - 1, size);
         Page<OrderDTO> orderDTOPage = iOrderService.findList(pageable);
         map.put("orderDTOPage", orderDTOPage);
         map.put("currentPage", page);

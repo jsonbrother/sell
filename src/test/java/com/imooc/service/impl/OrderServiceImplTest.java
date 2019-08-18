@@ -61,14 +61,14 @@ public class OrderServiceImplTest {
 
     @Test
     public void findList() {
-        PageRequest request = new PageRequest(0, 2);
+        PageRequest request = PageRequest.of(0, 2);
         Page<OrderDTO> orderDTOPage = iOrderService.findList(BUYER_OPENID, request);
         Assert.assertNotEquals(0, orderDTOPage.getTotalElements());
     }
 
     @Test
     public void list() {
-        PageRequest request = new PageRequest(0, 2);
+        PageRequest request = PageRequest.of(0, 2);
         Page<OrderDTO> orderDTOPage = iOrderService.findList(request);
         Assert.assertNotEquals(0, orderDTOPage.getTotalElements());
     }
